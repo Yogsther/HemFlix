@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage</title>
+    <link rel="stylesheet" href="css/manage.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="128x128" href="img/favicon-128.png" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="header">
+        <a href="/">Hemflix</a>
+        Admin board
+        <button class="update-button"
+            onclick="window.open('/upload', '_blank', 'location=yes,height=800,width=575,scrollbars=yes,status=yes')">
+            Upload
+        </button>
+
+
+        <span style="float: right;">Users</span>
+    </div>
+
+    <div class="row" id="movies"></div>
+    <div class="row" id="users"></div>
+
+    <script src="js/net.js"></script>
+    <script src="js/main.js"></script>
+    <!-- <script src="js/upload.js"></script> -->
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Upload content</title>
+        <link rel="stylesheet" href="css/manage.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link
+            rel="apple-touch-icon"
+            sizes="128x128"
+            href="img/favicon-128.png"
+        />
+        <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <span class="title big">Upload new entry</span>
+        <select name="" id="" oninput="updateType(this.value)">
+            <option value="movie">Movie</option>
+            <option value="tv">Tv</option>
+        </select>
+
+        <input
+            type="text"
+            id="imdb"
+            placeholder="IMDB ID (tt6751668)"
+            value=""
+        />
+        <a
+            href="https://www.imdb.com/search/"
+            class="link"
+            id="link"
+            target="_blank"
+            >Search IMDB</a
+        >
+        <input type="text" id="title" placeholder="Overwrite title" value="" />
+        <button class="new-video" onclick="addVideo()">Add video</button>
+        <!-- <input type="file" id="video" / > <input type="file" id="srt" / > -->
+
+        <!-- <div class="upload-block">
+            <span class="info-text">#1 : Video title</span>
+            <button class="select-button">Select video</button>
+            <button class="select-button">Select SRT</button>
+            <button class="select-button">Remove</button>
+            <div class="progress-bar">
+                <div class="progress-text">Upload not started</div>
+                <div class="progress"></div>
+            </div>
+        </div>
+ -->
+
+        <div id="uploads"></div>
+        <button onclick="upload()">Upload</button>
+
+        <span class="title" id="status"></span>
+
+        <script src="js/net.js"></script>
+        <script src="js/upload.js"></script>
+    </body>
+</html>

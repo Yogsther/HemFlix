@@ -1,0 +1,186 @@
+input[type="text"],
+button,
+select {
+    padding: 5px;
+    font-size: 20px;
+    width: 500px;
+    display: block;
+    margin: 15px;
+
+    -ms-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+body {
+    margin: 15px;
+    background: rgb(241, 241, 241);
+}
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+.title {
+    padding: 5px;
+    font-size: 20px;
+    display: block;
+    margin: 15px;
+}
+
+.big {
+    font-size: 30px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.progress-bar {
+    margin: 15px;
+    background-color: rgb(231, 231, 231);
+    height: 40px;
+    width: calc(100% - 30px);
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.progress {
+    height: 40px;
+    display: block;
+    position: absolute;
+    left: 0px;
+    width: 0%;
+    background: rgb(84, 216, 84);
+}
+
+.progress-text {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    text-align: center;
+    color: black;
+}
+
+.select-button {
+    width: 125px;
+    height: 25px;
+    display: inline-block;
+    margin-right: 0px;
+}
+
+.upload-block {
+    display: block;
+    width: 500px;
+    margin: 15px;
+    height: 168px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.info-text {
+    font-size: 20px;
+    display: block;
+    margin: 15px;
+    position: relative;
+    top: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 30px);
+}
+
+.new-video {
+    width: 150px;
+    display: inline-block;
+}
+
+.link {
+    display: block;
+    height: 20px;
+    margin-left: 15px;
+    font-size: 12px;
+    margin-top: -10px;
+    color: rgb(83, 83, 83);
+}
+
+.row {
+    width: calc(50% - 2px);
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+
+}
+
+.movie {
+    display: block;
+    background-color: rgb(223, 223, 223);
+    border-radius: 5px;
+    white-space: nowrap;
+    padding: 15px;
+    margin: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+#users {}
+
+.movie-title,
+.user-name {
+    font-size: 20px;
+    display: inline-block;
+    width: calc(100% - 115px);
+    overflow: hidden;
+    position: relative;
+    top: 4px;
+}
+
+.user-name {
+    width: calc(100% - 240px);
+}
+
+.update-button {
+    display: inline-block;
+    width: 90px;
+    margin: 0px;
+    margin-left: 10px;
+    position: relative;
+    top: -3px;
+    height: 22px;
+    font-size: 15px;
+}
+
+
+#users {}
+
+#header {
+    display: block;
+    margin: 15px;
+    font-size: 25px;
+    height: 50px;
+}
+
+.glare {}
+
+
+a {
+    color: black;
+}
+
+.color {
+    top: 0px;
+    left: 0px;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    border-radius: 0px 0px 100px 0px;
+}

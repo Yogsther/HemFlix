@@ -1,7 +1,9 @@
-const port = 80;
+const fs = require("file-system");
+
+const config = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const port = config.port;
 const started = Date.now();
 
-const fs = require("file-system");
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const request = require("request");
@@ -10,10 +12,12 @@ var srt2vtt = require("srt-to-vtt");
 const app = express();
 
 app.use(express.static("cdn"));
-app.use(fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/temp/"
-}));
+app.use(
+    fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/temp/",
+    })
+);
 app.use(express.json());
 
 class Movie {
@@ -38,8 +42,14 @@ class Movie {
 
 class Db {
     constructor() {
-        this.data = fs.readFileSync("db.json");
-        this.data = JSON.parse(this.data);
+        try {
+            this.data = fs.readFileSync("db.json");
+            this.data = JSON.parse(this.data);
+        } catch (e) {
+            this.data = { movies: {}, users: [] };
+            console.log("db.json not found, created new one.");
+            this.save();
+        }
         this.sort();
     }
 
@@ -91,7 +101,7 @@ function randomColor() {
         return {
             r: Math.round(r * 255),
             g: Math.round(g * 255),
-            b: Math.round(b * 255)
+            b: Math.round(b * 255),
         };
     }
 }
@@ -120,11 +130,11 @@ app.get("/movies", (req, res) => {
 
 app.get("/users", (req, res) => {
     for (let user of db.data.users) {
-        user.lastOnline = Math.round((Date.now() - user.lastPing) / 1000)
+        user.lastOnline = Math.round((Date.now() - user.lastPing) / 1000);
     }
     res.send({
         users: db.data.users,
-        uptime: Math.round((Date.now() - started) / 1000)
+        uptime: Math.round((Date.now() - started) / 1000),
     });
 });
 
@@ -146,17 +156,26 @@ function remove(path) {
 app.post("/bookmark", (req, res) => {
     for (var user of db.data.users) {
         if (user.name == req.body.user) {
-            if (!user.progress[req.body.code]) user.progress[req.body.code] = {}
-            user.progress[req.body.code].bookmarked = !user.progress[req.body.code].bookmarked
-            console.log(user.name + (user.progress[req.body.code].bookmarked ? " bookmarked " : " unbookmarked ") + db.data.movies[req.body.code].title)
-            res.end()
-            return
+            if (!user.progress[req.body.code])
+                user.progress[req.body.code] = {};
+            user.progress[req.body.code].bookmarked = !user.progress[
+                req.body.code
+            ].bookmarked;
+            console.log(
+                user.name +
+                    (user.progress[req.body.code].bookmarked
+                        ? " bookmarked "
+                        : " unbookmarked ") +
+                    db.data.movies[req.body.code].title
+            );
+            res.end();
+            return;
         }
     }
 
-    res.end()
-    return
-})
+    res.end();
+    return;
+});
 
 /* app.post("/remove_progress", (req, res) => {
     var code = req.body.code
@@ -211,12 +230,12 @@ app.post("/remove", (req, res) => {
 app.post("/color", (req, res) => {
     for (let user of db.data.users) {
         if (user.name == req.body.user) {
-            user.color = req.body.color
-            db.save()
+            user.color = req.body.color;
+            db.save();
         }
     }
-    res.end()
-})
+    res.end();
+});
 
 app.post("/progress", (req, res) => {
     for (var i = 0; i < db.data.users.length; i++) {
@@ -245,11 +264,11 @@ app.post("/progress", (req, res) => {
                 if (code == req.body.code) {
                     var movie = db.data.movies[code];
                     if (movie.type != "tv") {
-                        if (!user.progress[code]) user.progress[code] = {}
-                        user.progress[code].progress = req.body.progress
-                        user.progress[code].date = Date.now()
-                        user.progress[code].minutes_left = req.body.minutes_left
-
+                        if (!user.progress[code]) user.progress[code] = {};
+                        user.progress[code].progress = req.body.progress;
+                        user.progress[code].date = Date.now();
+                        user.progress[code].minutes_left =
+                            req.body.minutes_left;
                     } else {
                         if (req.body.episode == null) {
                             res.send("kick");
@@ -257,24 +276,30 @@ app.post("/progress", (req, res) => {
                         }
 
                         if (!user.progress[code]) user.progress[code] = {};
-                        if (!user.progress[code][req.body.episode]) user.progress[code][req.body.episode] = {}
-                        user.progress[code][req.body.episode].progress = req.body.progress
-                        user.progress[code][req.body.episode].date = Date.now()
-                        user.progress[code][req.body.episode].minutes_left = req.body.minutes_left
-                    };
-
+                        if (!user.progress[code][req.body.episode])
+                            user.progress[code][req.body.episode] = {};
+                        user.progress[code][req.body.episode].progress =
+                            req.body.progress;
+                        user.progress[code][req.body.episode].date = Date.now();
+                        user.progress[code][req.body.episode].minutes_left =
+                            req.body.minutes_left;
+                    }
 
                     if (!user.progress[code].bookmarked) {
-                        user.progress[code].bookmarked = true
+                        user.progress[code].bookmarked = true;
                     }
-                    if ((req.body.minutes_left < 8 && user.progress[code].bookmarked)) {
-                        if (movie.type == "movie" || req.body.episode == movie.files.length - 1) {
-                            user.progress[code].bookmarked = false
-                            console.log(user.name + " finished " + movie.title)
+                    if (
+                        req.body.minutes_left < 8 &&
+                        user.progress[code].bookmarked
+                    ) {
+                        if (
+                            movie.type == "movie" ||
+                            req.body.episode == movie.files.length - 1
+                        ) {
+                            user.progress[code].bookmarked = false;
+                            console.log(user.name + " finished " + movie.title);
                         }
-
                     }
-
                 }
             }
 
@@ -312,14 +337,14 @@ app.post("/user", (req, res) => {
     var user = {
         name: req.body.name,
         color: randomColor(),
-        progress: {}
+        progress: {},
     };
 
     for (let u of db.data.users) {
         if (u.name == user.name) {
             res.json({
                 success: false,
-                reason: "Namnet är redan taget."
+                reason: "Namnet är redan taget.",
             });
             return;
         }
@@ -328,7 +353,7 @@ app.post("/user", (req, res) => {
     db.data.users.push(user);
     db.save();
     res.json({
-        success: true
+        success: true,
     });
 });
 
@@ -356,12 +381,14 @@ app.post("/upload", (req, res) => {
             });
         }
 
-        req.files.video.mv(path, err => {
+        req.files.video.mv(path, (err) => {
             console.log("File uploaded to " + path);
             db.data.movies[req.body.code].files[req.body.id] =
                 fileName + "." + extension;
             res.end();
             db.save();
+            console.log("Saved movie");
+            console.log(db.data.movies[req.body.code], req.body.code);
         });
     } else {
         res.end();
@@ -369,4 +396,4 @@ app.post("/upload", (req, res) => {
 });
 
 app.listen(port);
-console.log("Started on port:" + port);
+console.log("HemFlix started on port: " + port);

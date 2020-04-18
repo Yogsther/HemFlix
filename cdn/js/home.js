@@ -209,9 +209,9 @@ function loadMovies() {
             </div>${link_end}`;
     }
 
-    document.getElementById("wrap").innerHTML = html + `<button id='show-all-movies-button' title='Lägg till filmer till ditt biblotek genom att klicka bokmärket.' onclick='showAllMovies()'>${showingAllMovies ? "Göm" : "Visa"} alla filmer</button>`;
+    document.getElementById("wrap").innerHTML = html + `<button id='show-all-movies-button' title='Add movies to your library by clicking the bookmark icon' onclick='showAllMovies()'>${showingAllMovies ? "Hide" : "Show"} all movies</button>`;
     document.getElementById("fresh-releases").innerText = freshReleases.length
-    document.getElementById("fresh-realeaes-list").title = freshReleases.length > 0 ? 'Nya filmer:\n' + freshReleases.join(",\n") : "Inga nya filmer"
+    document.getElementById("fresh-realeaes-list").title = freshReleases.length > 0 ? 'New movies:\n' + freshReleases.join(",\n") : "No new movies"
 
 }
 
@@ -228,13 +228,13 @@ function getMovies() {
     }
 
     document.getElementById("status-text").innerHTML = activeUsers.length.toString() + `<span
-            title="${activeUsers.length > 0 ? " Aktiva tittare just nu:\n" +
-            activeUsers.join(",\n"): "Inga aktiva tittare just nu." }"><svg class="icon${
+            title="${activeUsers.length > 0 ? " Active viewings right now:\n" +
+            activeUsers.join(",\n"): "No active viewings right now." }"><svg class="icon${
             activeUsers.length > 0 ? " active" : "" }" viewBox="0 0 24 24">
                 <path
                     d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                 <path d="M0 0h24v24H0z" fill="none" /></svg>` +
-        '</span><span title="Senast omstart (upptid)">' +
+        '</span><span title="Uptime">' +
         formatTime(uptime * 1000) +
         `<svg viewBox="0 0 24 24" class="icon">
                     <path
@@ -319,9 +319,9 @@ function openEpisodeChooser(code) {
             progress = me.progress[code][i].progress;
         }
         html += `<a
-                        href="/watch?id=${movie.code}&e=${i}" ${ latestView.id==i ? 'title="Nuvarande avsnitt"' : "" }>
+                        href="/watch?id=${movie.code}&e=${i}" ${ latestView.id==i ? 'title="Current episode"' : "" }>
                         <div class="episode">
-                            <span class="episode-text">Avsnitt ${i + 1}</span>
+                            <span class="episode-text">Episode ${i + 1}</span>
                             ${
                             latestView.id == i
                             ? `<svg class="latest-view" viewBox="0 0 24 24">
@@ -338,7 +338,7 @@ function openEpisodeChooser(code) {
     document.getElementById("overlay").innerHTML = `
                         <div id="episode-chooser">
                             ${html}
-                            <button class="cancel-button" onclick="toggleOverlay(false)">Tillbaka</button>
+                            <button class="cancel-button" onclick="toggleOverlay(false)">Back</button>
                         </div>`;
 
     toggleOverlay(true);

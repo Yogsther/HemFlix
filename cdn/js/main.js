@@ -36,8 +36,8 @@ function getUsers() {
                 document.getElementById(
                     "overlay"
                 ).innerHTML = `<div id="users">${usersHtml}</div>
-                <span id="add-user" onclick="addUser()">Lägg till person</span>
-                <a href="/admin"><span id="admin-link">Hantera</span></a>
+                <span id="add-user" onclick="addUser()">Add user</span>
+                <a href="/admin"><span id="admin-link">Manage</span></a>
                 `;
             }
 
@@ -48,7 +48,6 @@ function getUsers() {
                 if (isHome) toggleOverlay(true);
                 else {
                     location.href = "/";
-                    console.log("Logged out.");
                 }
             }
 

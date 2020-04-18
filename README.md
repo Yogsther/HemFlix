@@ -2,8 +2,8 @@
 ### Home media server solution
 
 ## Features
-* Continue watching with unique users
-* Upload movies and TV series from anywhere
+* Keeps track of where you are in each title, for multible users
+* Upload movies and TV series via a webrowser
 * Downloads Meta data and poster from IMDB
 * Supports subtitles (Converts SRT to VTT)
 * Native HTML5 player

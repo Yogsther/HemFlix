@@ -123,7 +123,11 @@ function loadMovies() {
     movieOrder.sort((a, b) => {
         if (isBookmarked(a) != isBookmarked(b)) return isBookmarked(b) - isBookmarked(a)
         if (hasFinished(a) != hasFinished(b)) return hasFinished(a) - hasFinished(b)
-        if (getLastSeen(a) > 0 || getLastSeen(b) > 0) return getLastSeen(b) - getLastSeen(a)
+        if (getLastSeen(a) || getLastSeen(b)) {
+            if (getLastSeen(a) && getLastSeen(b)) return getLastSeen(b) - getLastSeen(a)
+            if (getLastSeen(a)) return -1;
+            else return 1
+        }
     })
 
     var freshReleases = []

@@ -25,7 +25,6 @@ class Movie {
         this.imdb = imdb;
         this.info = info;
         this.type = type;
-        this.lastPing = Date.now();
         this.added = Date.now();
         this.title = title ? title : info.Title;
         this.code = this.title.replace(/[\W_]+/g, "_").toLowerCase();
@@ -46,7 +45,10 @@ class Db {
             this.data = fs.readFileSync("db.json");
             this.data = JSON.parse(this.data);
         } catch (e) {
-            this.data = { movies: {}, users: [] };
+            this.data = {
+                movies: {},
+                users: []
+            };
             console.log("db.json not found, created new one.");
             this.save();
         }
@@ -163,10 +165,10 @@ app.post("/bookmark", (req, res) => {
             ].bookmarked;
             console.log(
                 user.name +
-                    (user.progress[req.body.code].bookmarked
-                        ? " bookmarked "
-                        : " unbookmarked ") +
-                    db.data.movies[req.body.code].title
+                (user.progress[req.body.code].bookmarked ?
+                    " bookmarked " :
+                    " unbookmarked ") +
+                db.data.movies[req.body.code].title
             );
             res.end();
             return;

@@ -12,7 +12,7 @@
 
 ## Installation
 
-Prerequisites: Node.js width npm
+Prerequisites: Node.js with npm
 
 1. Clone the repo ```git clone https://github.com/Yogsther/HemFlix```
 2. Install node modules ```npm i```
